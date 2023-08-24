@@ -1,8 +1,11 @@
 package com.blog.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,16 @@ public class UserController {
 		UserDto createUser = this.userService.createUser(userDto);
 		return new ResponseEntity<>(createUser,HttpStatus.CREATED);
 	
+	}
+	
+	
+	@GetMapping("/list")
+	public List<UserDto> getAllUsers(){
+		
+		List<UserDto> allUser = this.userService.getAllUser();
+		
+		return allUser;
+		
 	}
 
 }
