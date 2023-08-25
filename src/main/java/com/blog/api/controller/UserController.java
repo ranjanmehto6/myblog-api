@@ -58,8 +58,6 @@ public class UserController {
 
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable("userId")Long UserId){
-
-
 		UserDto userById = this.userService.getUserById(UserId);
 		return new ResponseEntity<>(userById,HttpStatus.OK);
 
