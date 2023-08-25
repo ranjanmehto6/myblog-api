@@ -2,14 +2,11 @@ package com.blog.api.controller;
 
 import java.util.List;
 
+import com.blog.api.payload.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.blog.api.payload.UserDto;
 import com.blog.api.services.UserService;
@@ -38,5 +35,35 @@ public class UserController {
 		return allUser;
 		
 	}
+
+	@PutMapping("/{userId}")
+	public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable("userId") Long userId){
+
+		UserDto userDto1 = this.userService.updateUser(userDto, userId);
+		return new ResponseEntity<>(userDto1,HttpStatus.OK);
+
+
+	}
+
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Long userId){
+
+		this.userService.deleteUser(userId);
+
+		return new ResponseEntity<>(new ApiResponse("User Deleted Sucessfully",true),HttpStatus.OK);
+
+
+
+	}
+
+	@GetMapping("/{userId}")
+	public ResponseEntity<UserDto> getUserById(@PathVariable("userId")Long UserId){
+
+
+		UserDto userById = this.userService.getUserById(UserId);
+		return new ResponseEntity<>(userById,HttpStatus.OK);
+
+	}
+
 
 }
